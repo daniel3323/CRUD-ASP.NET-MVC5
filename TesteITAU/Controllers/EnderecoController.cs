@@ -16,7 +16,6 @@ namespace TesteITAU.Controllers
         private Endereco endereco;
         private string URL = "https://viacep.com.br/ws/";
         public readonly DbContexto db;
-
         
         public EnderecoController()
         {

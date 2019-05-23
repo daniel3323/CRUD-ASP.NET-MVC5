@@ -12,7 +12,6 @@ namespace TesteITAU.Controllers
     {
         public readonly DbContexto db;
 
-
         public UsuarioController()
         {
             db = new DbContexto();
