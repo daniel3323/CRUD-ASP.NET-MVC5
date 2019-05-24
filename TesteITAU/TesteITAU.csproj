@@ -160,9 +160,12 @@
     <Compile Include="Migrations\201905232251479_v3.Designer.cs">
       <DependentUpon>201905232251479_v3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905240141198_v4.cs" />
+    <Compile Include="Migrations\201905240141198_v4.Designer.cs">
+      <DependentUpon>201905240141198_v4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Conta.cs" />
-    <Compile Include="Models\Endereco.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,7 +182,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Views\Usuario\Index.cshtml" />
-    <Content Include="Views\Endereco\Index.cshtml" />
     <Content Include="Views\Usuario\CadastrarUsuario.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
@@ -252,6 +254,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905232251479_v3.resx">
       <DependentUpon>201905232251479_v3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905240141198_v4.resx">
+      <DependentUpon>201905240141198_v4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

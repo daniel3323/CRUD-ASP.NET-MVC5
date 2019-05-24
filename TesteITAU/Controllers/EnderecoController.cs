@@ -13,46 +13,13 @@ namespace TesteITAU.Controllers
 {
     public class EnderecoController : Controller
     {
-        private Endereco endereco;
+        Usuario enderecoUsuario;
         private string URL = "https://viacep.com.br/ws/";
-        public readonly DbContexto db;
-        
-        public EnderecoController()
-        {
-            db = new DbContexto();
-        }
-
-
-        //Metodos
-        [HttpGet]
-        public ActionResult Index()
-        {
-            //Instancia uma viewbag ao chamar o Index da pagina
-            //ViewBag.NomeViewBag
-            ViewBag.Usuarios = db.Usuario.ToList();
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CadastrarEndereco(Endereco endereco)
-        {
-            try
-            {
-                CadastrarEnderecoUsuario(endereco);
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                return Json(new { erro = true, msg = ex.Message });
-            }
-        } 
-
 
         [HttpGet]
         public JsonResult GetEndereco(string cep)
         {
-            endereco = new Endereco();
+            enderecoUsuario = new Usuario();
             try
             {
                 using(var client = new HttpClient())
@@ -69,37 +36,18 @@ namespace TesteITAU.Controllers
                     dynamic jsonDeserialized = JsonConvert.DeserializeObject(responseString);
 
                     //Setando conteúdo no objeto "Endereço"
-                    endereco.Logradouro = jsonDeserialized.logradouro;
-                    endereco.Cidade = jsonDeserialized.localidade;
-                    endereco.Bairro = jsonDeserialized.bairro;
-                    endereco.Estado = jsonDeserialized.uf;
+                    enderecoUsuario.Logradouro = jsonDeserialized.logradouro;
+                    enderecoUsuario.Cidade = jsonDeserialized.localidade;
+                    enderecoUsuario.Bairro = jsonDeserialized.bairro;
+                    enderecoUsuario.Estado = jsonDeserialized.uf;
 
-                    return Json(endereco, JsonRequestBehavior.AllowGet);
+                    return Json(enderecoUsuario, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
                 return Json(new { erro = true, msg = "CEP não encontrado." }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        //Functions
-        private void CadastrarEnderecoUsuario(Endereco endereco)
-        {
-            db.Endereco.Add(endereco);
-            db.SaveChanges();
-        }
-
-        private void AlterarEndereco(Endereco endereco)
-        {
-            db.Entry(endereco).State = EntityState.Modified;
-            db.SaveChanges();
-        }
-
-        private void DeletarEnderecoUsuario(Endereco endereco)
-        {
-            db.Entry(endereco).State = EntityState.Deleted;
-            db.SaveChanges();
         }
     }
 }
