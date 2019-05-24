@@ -20,11 +20,57 @@ namespace TesteITAU.Controllers
 
         //Metodos
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult ListarUsuarios()
         {
             ViewBag.Usuarios = db.Usuario.Where(usuario => usuario.Nome != null).ToList();
             return View();
-        } 
+        }       
+
+
+        [HttpGet]
+        public ActionResult Logar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Logar(Usuario usuario)
+        {
+            if(ModelState.IsValid)
+            {
+                using (DbContexto db = new DbContexto())
+                {
+                    var validaAcesso = db.Usuario.Where(u => u.Login.Equals(usuario.Login)).FirstOrDefault();
+
+                    if (validaAcesso.Senha == usuario.Senha && validaAcesso.Login == usuario.Login)
+                    {
+                        Session["Nome"] = validaAcesso.Nome;
+                        Session["Sobrenome"] = validaAcesso.Sobrenome;
+                        Session["ID"] = validaAcesso.ID;
+                        Session["UsuarioLogado"] = true;
+
+                        return RedirectToAction("ListarUsuarios", "Usuario");
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Login ou Senha incorretos.");
+                return View();
+            }
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Response.Cookies.Clear();
+            return RedirectToAction("Index", "Home");
+        }
 
 
         [HttpGet]
@@ -39,7 +85,7 @@ namespace TesteITAU.Controllers
             try
             {
                 CadastrarNovoUsuario(usuario);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Logar", "Usuario");
                 //return Json(new { erro = false, msg = "Cadastrado" });
             }
             catch (Exception ex)
@@ -47,6 +93,23 @@ namespace TesteITAU.Controllers
                 return Json(new { erro = true, msg = ex.Message });
             }
         }
+
+
+        [HttpGet]
+        public ActionResult AlterarUsuario()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AlterarUsuario(Usuario usuario)
+        {
+            db.Usuario.Find(Session["ID"]);
+            AlterarUsuario(usuario);
+
+            return View();
+        }
+
 
         //Functions
         private void CadastrarNovoUsuario(Usuario usuario)
@@ -58,12 +121,6 @@ namespace TesteITAU.Controllers
         private void AlterarUsuarioCadastrado(Usuario usuario)
         {
             db.Entry(usuario).State = EntityState.Modified;
-            db.SaveChanges();
-        }
-
-        private void DeletarUsuario(Usuario usuario)
-        {
-            db.Entry(usuario).State = EntityState.Deleted;
             db.SaveChanges();
         }
     }

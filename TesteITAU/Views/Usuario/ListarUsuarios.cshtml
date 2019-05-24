@@ -5,11 +5,8 @@
 }
 
 <h2>Lista Usuários</h2>
-@*<p>
-    @Html.ActionLink("Incluir Novo Produto", "Create", "Produtos", new { @class = "btn btn-success" })
-</p>*@
 
-<table class="table">
+<table class="table" align="center">
     <tr>
         <th>
             @Html.DisplayNameFor(usuario => usuario.ID)
@@ -47,11 +44,11 @@
         <td>
             @usuario.Telefone
         </td>
-        @*<td>
-            @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoId }) |
-            @Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
-            @Html.ActionLink("Deletar", "Delete", new { id = item.ProdutoId })
-        </td>*@
+        <td>
+            @*@Html.ActionLink("Editar", "EditarUsuario", new { usuarioID = ViewBag.Usuarios.ID })*@
+            @*@Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
+            @Html.ActionLink("Deletar", "Delete", new { id = item.ProdutoId })*@
+        </td>
     </tr>
     }
 </table>
