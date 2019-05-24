@@ -4,7 +4,7 @@
     ViewBag.Title = "Extrato";
 }
 
-<h2>Extrato- Ultimas Transações</h2>
+<h2>Extrato - Ultimas Transações</h2>
 
     <table class="table" align="center">
         <tr>
@@ -20,7 +20,7 @@
             <th></th>
         </tr>
 
-        @foreach (var conta in ViewBag.Contas)
+        @foreach (var conta in ViewBag.Conta)
         {
             <tr>
                 <td>
@@ -39,11 +39,6 @@
                 </td>
                 <td>
                     @conta.Saldo
-                </td>
-                <td>
-                    @*@Html.ActionLink("Editar", "EditarUsuario", new { usuarioID = ViewBag.Usuarios.ID })*@
-                    @*@Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
-                        @Html.ActionLink("Deletar", "Delete", new { id = item.ProdutoId })*@
                 </td>
             </tr>
         }

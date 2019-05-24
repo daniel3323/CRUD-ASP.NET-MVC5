@@ -37,7 +37,7 @@ namespace TesteITAU.Controllers
         [HttpGet]
         public ActionResult Extrato()
         {
-            ViewBag.Conta = db.Contas.Where(c => c.Usuario.ID == Convert.ToInt32(Session["ID"]));
+            ViewBag.Conta = db.Contas.ToList();
             return View();
         }
 
