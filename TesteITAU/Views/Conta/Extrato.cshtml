@@ -1,0 +1,58 @@
+﻿@model TesteITAU.Models.Conta
+
+@{
+    ViewBag.Title = "Extrato";
+}
+
+<h2>Extrato- Ultimas Transações</h2>
+
+    <table class="table" align="center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(conta => conta.DataLancamento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(conta => conta.ValorLancamento)                
+            </th>
+            <th>
+                @Html.DisplayNameFor(conta => conta.Saldo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var conta in ViewBag.Contas)
+        {
+            <tr>
+                <td>
+                    @conta.DataLancamento
+                </td>
+                <td>
+                    @if (conta.TipoLancamento == 'e')
+                    {
+                        @(conta.ValorLancamento + "+")
+                    }
+                    else
+                    {
+                        @(conta.ValorLancamento + "-")
+                    }
+
+                </td>
+                <td>
+                    @conta.Saldo
+                </td>
+                <td>
+                    @*@Html.ActionLink("Editar", "EditarUsuario", new { usuarioID = ViewBag.Usuarios.ID })*@
+                    @*@Html.ActionLink("Detalhes", "Details", new { id = item.ProdutoId }) |
+                        @Html.ActionLink("Deletar", "Delete", new { id = item.ProdutoId })*@
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

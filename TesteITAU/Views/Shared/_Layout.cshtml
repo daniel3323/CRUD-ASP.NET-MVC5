@@ -25,6 +25,10 @@
                     <li>@Html.ActionLink("Lista de Usuarios", "ListarUsuarios", "Usuario")</li>
                 </ul>
 
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Deposito", "Depositar", "Conta")</li>
+                </ul>
+
                 <ul class="navbar-text pull-right">
                     @if (Session["UsuarioLogado"] != null)
                     {

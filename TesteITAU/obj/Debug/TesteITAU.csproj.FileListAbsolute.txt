@@ -465,3 +465,7 @@ C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migratio
 C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v42.resources
 C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v5.resources
 C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v51.resources
+C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v52.resources
+C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v6.resources
+C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v7.resources
+C:\Users\Daniel\Desktop\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v71.resources

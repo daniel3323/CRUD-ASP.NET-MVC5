@@ -10,8 +10,11 @@ namespace TesteITAU.Models
     {
         [Key]
         public int ID { get; set; }
-        public Double Saldo { get; set; }
-        public string Numero { get; set; }
+        public double Saldo { get; set; }
+        public string NumeroConta { get; set; }
+        public DateTime DataLancamento { get; set; }
+        public char TipoLancamento { get; set; }
+        public double ValorLancamento { get; set; }
 
         public Usuario Usuario { get; set; }
     }

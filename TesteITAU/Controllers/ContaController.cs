@@ -20,17 +20,37 @@ namespace TesteITAU.Controllers
         
         
         //Métodos
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Depositar()
         {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Depositar(double valor)
+        {
+            DepositarValor(valor);
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Extrato()
+        {
+            ViewBag.Conta = db.Contas.Where(c => c.Usuario.ID == Convert.ToInt32(Session["ID"]));
+            return View();
+        }
 
         //Functions
         private void DepositarValor(double valor)
         {
             conta = new Conta();
+
+            conta.DataLancamento = DateTime.Now;
             conta.Saldo += valor;
+            conta.Usuario = db.Usuario.Find(Session["ID"]);
+            conta.TipoLancamento = 'e';
+            conta.ValorLancamento = valor;
 
             db.Entry(conta).State = EntityState.Modified;
             db.SaveChanges();
@@ -41,7 +61,11 @@ namespace TesteITAU.Controllers
             conta = new Conta();
             if(conta.Saldo > 0)
             {
+                conta.DataLancamento = DateTime.Now;
                 conta.Saldo -= valor;
+                conta.Usuario = db.Usuario.Find(Session["ID"]);
+                conta.TipoLancamento = 's';
+                conta.ValorLancamento = valor;               
             }
         }
     }

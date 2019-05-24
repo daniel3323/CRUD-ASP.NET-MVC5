@@ -158,24 +158,20 @@
         $('#CEP').mask('00000-000');
 
 
-        $(document).ready(function ()
-        {
-            $("#btnConsultar").click(function ()
-            {
+        $(document).ready(function () {
+            $("#btnConsultar").click(function () {
                 $.ajax({
                     url: '@Url.Action("GetEndereco", "Endereco")',
                     type: "GET",
                     contentType: "application/json",
                     data: { cep: $("#CEP").val() },
-                    success: function (result)
-                    {
+                    success: function (result) {
                         $("#Logradouro").val(result.Logradouro),
                         $("#Bairro").val(result.Bairro),
                         $("#Cidade").val(result.Cidade),
                         $("#Estado").val(result.Estado)
                     },
-                    error: function (result)
-                    {
+                    error: function (result) {
                         alert(result)
                     }
                 });

@@ -181,6 +181,22 @@
     <Compile Include="Migrations\201905241643573_v51.Designer.cs">
       <DependentUpon>201905241643573_v51.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905241831013_v52.cs" />
+    <Compile Include="Migrations\201905241831013_v52.Designer.cs">
+      <DependentUpon>201905241831013_v52.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905241858378_v6.cs" />
+    <Compile Include="Migrations\201905241858378_v6.Designer.cs">
+      <DependentUpon>201905241858378_v6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905241912521_v7.cs" />
+    <Compile Include="Migrations\201905241912521_v7.Designer.cs">
+      <DependentUpon>201905241912521_v7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905241922498_v71.cs" />
+    <Compile Include="Migrations\201905241922498_v71.Designer.cs">
+      <DependentUpon>201905241922498_v71.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\Usuario.cs" />
@@ -202,6 +218,8 @@
     <Content Include="Views\Usuario\CadastrarUsuario.cshtml" />
     <Content Include="Views\Usuario\Logar.cshtml" />
     <Content Include="Views\Usuario\AlterarUsuario.cshtml" />
+    <Content Include="Views\Conta\Depositar.cshtml" />
+    <Content Include="Views\Conta\Extrato.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -250,7 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Conta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -289,6 +306,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905241643573_v51.resx">
       <DependentUpon>201905241643573_v51.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241831013_v52.resx">
+      <DependentUpon>201905241831013_v52.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241858378_v6.resx">
+      <DependentUpon>201905241858378_v6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241912521_v7.resx">
+      <DependentUpon>201905241912521_v7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905241922498_v71.resx">
+      <DependentUpon>201905241922498_v71.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
