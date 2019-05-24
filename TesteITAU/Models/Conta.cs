@@ -10,8 +10,9 @@ namespace TesteITAU.Models
     {
         [Key]
         public int ID { get; set; }
-        public float saldo { get; set; }
+        public Double Saldo { get; set; }
+        public string Numero { get; set; }
 
-        public Usuario usuario { get; set; }
+        public Usuario Usuario { get; set; }
     }
 }

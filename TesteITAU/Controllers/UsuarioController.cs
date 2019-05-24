@@ -18,11 +18,11 @@ namespace TesteITAU.Controllers
         }
 
 
-        //Metodos
+        //Métodos
         [HttpGet]
         public ActionResult ListarUsuarios()
         {
-            ViewBag.Usuarios = db.Usuario.Where(usuario => usuario.Nome != null).ToList();
+            ViewBag.Usuarios = db.Usuario.ToList();
             return View();
         }       
 
@@ -38,28 +38,14 @@ namespace TesteITAU.Controllers
         {
             if(ModelState.IsValid)
             {
-                using (DbContexto db = new DbContexto())
-                {
-                    var validaAcesso = db.Usuario.Where(u => u.Login.Equals(usuario.Login)).FirstOrDefault();
-
-                    if (validaAcesso.Senha == usuario.Senha && validaAcesso.Login == usuario.Login)
-                    {
-                        Session["Nome"] = validaAcesso.Nome;
-                        Session["Sobrenome"] = validaAcesso.Sobrenome;
-                        Session["ID"] = validaAcesso.ID;
-                        Session["UsuarioLogado"] = true;
-
-                        return RedirectToAction("ListarUsuarios", "Usuario");
-                    }
-                }
+                LogarValidado(usuario);
+                return RedirectToAction("ListarUsuarios", "Usuario");
             }
             else
             {
                 ModelState.AddModelError("", "Login ou Senha incorretos.");
                 return View();
             }
-
-            return View();
         }
 
 
@@ -98,19 +84,18 @@ namespace TesteITAU.Controllers
         [HttpGet]
         public ActionResult AlterarUsuario()
         {
-            return View();
+            return View("AlterarUsuario", db.Usuario.Find(Session["ID"]));
         }
 
         [HttpPost]
         public ActionResult AlterarUsuario(Usuario usuario)
         {
-            db.Usuario.Find(Session["ID"]);
-            AlterarUsuario(usuario);
+            AlterarUsuarioCadastrado(usuario);
 
-            return View();
+            return View("Index", "Home");            
         }
+        
 
-        //teste
         //Functions
         private void CadastrarNovoUsuario(Usuario usuario)
         {
@@ -122,6 +107,22 @@ namespace TesteITAU.Controllers
         {
             db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        private void LogarValidado(Usuario usuario)
+        {
+            using (DbContexto db = new DbContexto())
+            {
+                var validaAcesso = db.Usuario.Where(u => u.Login.Equals(usuario.Login)).FirstOrDefault();
+
+                if (validaAcesso.Senha == usuario.Senha && validaAcesso.Login == usuario.Login)
+                {
+                    Session["Nome"] = validaAcesso.Nome;
+                    Session["Sobrenome"] = validaAcesso.Sobrenome;
+                    Session["ID"] = validaAcesso.ID;
+                    Session["UsuarioLogado"] = true;
+                }
+            }
         }
     }
 }

@@ -1,0 +1,18 @@
+namespace TesteITAU.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class v51 : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Conta", "Numero", c => c.String());
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Conta", "Numero");
+        }
+    }
+}

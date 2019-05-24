@@ -73,7 +73,7 @@
     <br />
     <br />
 
-    <h4>Endereco</h4>
+    <h4>Endereço</h4>
     <hr />
 
     <div class="form-group">
@@ -93,7 +93,7 @@
     <div class="form-group">
         @Html.LabelFor(usuario => usuario.Logradouro, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Logradouro, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+            @Html.EditorFor(usuario => usuario.Logradouro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(usuario => usuario.Logradouro, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -109,7 +109,7 @@
     <div class="form-group">
         @Html.LabelFor(usuario => usuario.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Complemento, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+            @Html.EditorFor(usuario => usuario.Complemento, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(usuario => usuario.Complemento, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -117,7 +117,7 @@
     <div class="form-group">
         @Html.LabelFor(usuario => usuario.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Bairro, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+            @Html.EditorFor(usuario => usuario.Bairro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(usuario => usuario.Bairro, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -125,7 +125,7 @@
     <div class="form-group">
         @Html.LabelFor(usuario => usuario.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Cidade, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+            @Html.EditorFor(usuario => usuario.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(usuario => usuario.Cidade, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -133,7 +133,7 @@
     <div class="form-group">
         @Html.LabelFor(usuario => usuario.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Estado, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+            @Html.EditorFor(usuario => usuario.Estado, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             @Html.ValidationMessageFor(usuario => usuario.Estado, "", new { @class = "text-danger" })
         </div>
     </div>
