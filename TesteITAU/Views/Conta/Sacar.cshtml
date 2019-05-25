@@ -1,12 +1,12 @@
 ﻿@model TesteITAU.Models.Conta
 
 @{
-    ViewBag.Title = "Depósito";
+    ViewBag.Title = "Saque";
 }
 
-<h2>Depósito</h2>
+<h2>Sacque</h2>
 
-@using (Html.BeginForm("Depositar", "Conta", FormMethod.Post))
+@using (Html.BeginForm("Sacar", "Conta", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -15,7 +15,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.Label("Depositar", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Sacar", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(conta => conta.Saldo, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
                 @Html.ValidationMessageFor(conta => conta.Saldo, "", new { @class = "text-danger" })

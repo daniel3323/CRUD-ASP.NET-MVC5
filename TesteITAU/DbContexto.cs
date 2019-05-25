@@ -15,6 +15,7 @@ namespace TesteITAU
 
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Conta> Contas { get; set; }
+        public virtual DbSet<Lancamento> Lancamento { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

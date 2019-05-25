@@ -24,30 +24,38 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Lista de Usuarios", "ListarUsuarios", "Usuario")</li>
                 </ul>
+                @if (Session["UsuarioLogado"] != null)
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Extrato", "Extrato", "Lancamento")</li>
+                    </ul>
 
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Deposito", "Depositar", "Conta")</li>
-                </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Deposito", "Depositar", "Conta")</li>
+                    </ul>
 
-                <ul class="navbar-text pull-right">
-                    @if (Session["UsuarioLogado"] != null)
-                    {
-                        @:Olá,
-                        @Session["Nome"]
-                        @: |
-                        @Html.ActionLink("Editar Perfil", "AlterarUsuario", "Usuario")
-                        @: |
-                        @Html.ActionLink("Sair", "Logout", "Usuario")
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Entrar", "Logar", "Usuario")
-                        @: ou
-                        @Html.ActionLink("Cadastre-se", "CadastrarUsuario", "Usuario")
-                    }
-                </ul>
-            </div>
-            
+                    <ul class="navbar-text pull-right">
+                        <li>
+                            Olá,
+                            @Session["Nome"]
+                            |
+                            @Html.ActionLink("Editar Perfil", "AlterarUsuario", "Usuario")
+                            |
+                            @Html.ActionLink("Sair", "Logout", "Usuario")
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="navbar-text pull-right">
+                        <li>
+                            @Html.ActionLink("Entrar", "Logar", "Usuario")
+                            ou
+                            @Html.ActionLink("Cadastre-se", "CadastrarUsuario", "Usuario")
+                        </li>
+                    </ul>
+                }
+            </div>            
         </div>
     </div>
     <div class="container body-content">

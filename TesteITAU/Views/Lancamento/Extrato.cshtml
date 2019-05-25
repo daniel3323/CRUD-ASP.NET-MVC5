@@ -1,0 +1,53 @@
+﻿@model TesteITAU.Models.Lancamento
+
+@{
+    ViewBag.Title = "Extrato";
+}
+
+<h2>Extrato - Ultimas Transações</h2>
+
+<table class="table" align="center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(lancamento => lancamento.DataLancamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(lancamento => lancamento.ValorLancamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(lancamento => lancamento.Conta.Saldo)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var lancamento in ViewBag.Lancamentos)
+    {
+        <tr>
+            <td>
+                @lancamento.DataLancamento
+            </td>
+            <td>
+                @if (lancamento.TipoLancamento == "e")
+                {
+                    @(lancamento.ValorLancamento + "+")
+                }
+                else
+                {
+                    @(lancamento.ValorLancamento + "-")
+                }
+
+            </td>
+            <td>
+                @lancamento.Saldo
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

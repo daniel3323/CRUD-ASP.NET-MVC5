@@ -1,4 +1,4 @@
-﻿@model TesteITAU.Models.Conta
+﻿@model TesteITAU.Models.Lancamento
 
 @{
     ViewBag.Title = "Extrato";
@@ -20,14 +20,14 @@
             <th></th>
         </tr>
 
-        @foreach (var conta in ViewBag.Conta)
+        @foreach (var conta in ViewBag.Lancamento)
         {
             <tr>
                 <td>
                     @conta.DataLancamento
                 </td>
                 <td>
-                    @if (conta.TipoLancamento == 'e')
+                    @if (conta.TipoLancamento == "e")
                     {
                         @(conta.ValorLancamento + "+")
                     }

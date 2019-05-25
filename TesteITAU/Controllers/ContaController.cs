@@ -10,8 +10,12 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-        public Conta conta;
+        private Conta conta;
+        private Usuario usuario;
+        private Lancamento lancamento;
+
         public readonly DbContexto db;
+        private static int sessionID;
 
         public ContaController()
         {
@@ -29,7 +33,7 @@ namespace TesteITAU.Controllers
         [HttpPost]
         public ActionResult Depositar(double valor)
         {
-            DepositarValor(valor);
+            DepositarValor(valor, db.Contas.Where(c => c.Usuario.ID.Equals(Session["ID"])).FirstOrDefault());
             return View();
         }
 
@@ -37,35 +41,62 @@ namespace TesteITAU.Controllers
         [HttpGet]
         public ActionResult Extrato()
         {
-            ViewBag.Conta = db.Contas.ToList();
+            int sessionID = Convert.ToInt32(Session["ID"]);
+
+            ViewBag.Conta = db.Contas.Where(c => c.Usuario.ID == sessionID).ToList();
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Sacar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Sacar(double valor)
+        {
+            SacarValor(valor, db.Contas.Where(c => c.Usuario.ID.Equals(Session["ID"])).FirstOrDefault());
             return View();
         }
 
         //Functions
-        private void DepositarValor(double valor)
+        private void DepositarValor(double valor, Conta conta)
         {
-            conta = new Conta();
-
-            conta.DataLancamento = DateTime.Now;
             conta.Saldo += valor;
             conta.Usuario = db.Usuario.Find(Session["ID"]);
-            conta.TipoLancamento = 'e';
-            conta.ValorLancamento = valor;
+
+            lancamento = new Lancamento();
+
+            lancamento.DataLancamento = DateTime.Now;
+            lancamento.TipoLancamento = "e";
+            lancamento.ValorLancamento = valor;
+
+            conta.Lancamentos.Add(lancamento);
 
             db.Entry(conta).State = EntityState.Modified;
             db.SaveChanges();
         }
 
         public void SacarValor(double valor, Conta conta)
-        {
-            conta = new Conta();
+        {            
             if(conta.Saldo > 0)
             {
-                conta.DataLancamento = DateTime.Now;
+
                 conta.Saldo -= valor;
                 conta.Usuario = db.Usuario.Find(Session["ID"]);
-                conta.TipoLancamento = 's';
-                conta.ValorLancamento = valor;               
+
+                lancamento = new Lancamento();
+
+                lancamento.DataLancamento = DateTime.Now;
+                lancamento.TipoLancamento = "e";
+                lancamento.ValorLancamento = valor;
+
+                conta.Lancamentos.Add(lancamento);
+
+                db.Entry(conta).State = EntityState.Modified;
+                db.SaveChanges();
             }
         }
     }
