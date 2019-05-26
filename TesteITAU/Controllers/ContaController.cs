@@ -23,7 +23,7 @@ namespace TesteITAU.Controllers
         //Métodos
         [HttpPost]
         public ActionResult CriarConta(Conta conta)
-        {
+        { 
             if(Session["ID"] != null)
             {
                 CriarNovaConta(conta);
