@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,8 @@ namespace TesteITAU.Models
         public string Tipo { get; set; }
         public double Valor { get; set; }
 
+        [ForeignKey("Conta")]
+        public int Conta_ID { get; set; }
         public Conta Conta { get; set; }
     }
 }

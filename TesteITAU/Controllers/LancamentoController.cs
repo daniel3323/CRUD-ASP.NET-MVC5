@@ -11,7 +11,6 @@ namespace TesteITAU.Controllers
     public class LancamentoController : Controller
     {
         public readonly DbContexto db;
-        private Lancamento lancamento;
         private ContaController contaController;
         private static int sessionID;
 
@@ -27,7 +26,7 @@ namespace TesteITAU.Controllers
         {
             sessionID = Convert.ToInt32(Session["ID"]);
 
-            ViewBag.Lancamentos = db.Lancamento.Where(c => c.Conta.Usuario.ID == sessionID).ToList();
+            ViewBag.Lancamentos = db.Lancamento.Where(c => c.Conta.Usuario_ID == sessionID).ToList();
             return View();
         }
 
@@ -67,7 +66,7 @@ namespace TesteITAU.Controllers
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "e";
-            lancamento.Conta = db.Contas.Where(c => c.Usuario.ID.Equals(sessionID)).FirstOrDefault();                      
+            lancamento.Conta = db.Contas.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();                      
 
             db.Lancamento.Add(lancamento);
             db.SaveChanges();
@@ -84,7 +83,7 @@ namespace TesteITAU.Controllers
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "s";
-            lancamento.Conta = db.Contas.Where(c => c.Usuario.Equals(sessionID)).FirstOrDefault();
+            lancamento.Conta = db.Contas.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();
 
             db.Lancamento.Add(lancamento);
             db.SaveChanges();

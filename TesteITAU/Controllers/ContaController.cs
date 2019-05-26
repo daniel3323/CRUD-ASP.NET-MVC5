@@ -10,12 +10,8 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-        private Conta conta;
-        private Usuario usuario;
-        private Lancamento lancamento;
 
         public readonly DbContexto db;
-        private static int sessionID;
 
         public ContaController()
         {
