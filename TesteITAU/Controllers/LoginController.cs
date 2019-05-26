@@ -38,7 +38,7 @@ namespace TesteITAU.Controllers
 
             if (ModelState.IsValid)
             {
-                if (db.Usuario.Any(u => u.Login == login.LoginUsuario && u.Login == login.Senha))
+                if (db.Usuario.Where(u => u.Login == login.LoginUsuario && u.Login == login.Senha) != null)
                 {
                     LogarValidado(login);
                     return RedirectToAction("Index", "Home");
@@ -51,7 +51,7 @@ namespace TesteITAU.Controllers
             else
             {
                 ModelState.AddModelError("","Login ou Senha incorretos.");
-                return View();
+                return View(login);
             }
 
             return View(login);

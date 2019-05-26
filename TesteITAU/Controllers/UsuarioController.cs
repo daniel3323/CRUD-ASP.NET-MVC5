@@ -40,12 +40,12 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    if(db.Usuario.Any(u => u.Login == usuario.Login))
+                    if(db.Usuario.Where(u => u.Login == usuario.Login) != null)
                     {
-                        if(db.Usuario.Any(u => u.Email == usuario.Email))
+                        if(db.Usuario.Where(u => u.Email == usuario.Email) != null)
                         {
                             CadastrarNovoUsuario(usuario);
-                            return RedirectToAction("Logar", "Usuario");
+                            return RedirectToAction("Logar", "Login");
                         }
                         else
                         {

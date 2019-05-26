@@ -10,7 +10,8 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-        Random random = new Random();
+        private Conta conta;
+        private Random random;
         public readonly DbContexto db;
 
         public ContaController()
@@ -20,16 +21,24 @@ namespace TesteITAU.Controllers
         
 
         //Métodos
-        [HttpGet]
-        public ActionResult CriarConta()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult CriarConta(Conta conta)
         {
-            CriarNovaConta(conta);
+            if(Session["ID"] != null)
+            {
+                CriarNovaConta(conta);
+                return RedirectToAction("Depositar", "Lancamento");
+            }
+            else
+            {
+                ModelState.AddModelError("", "É necessário efetuar Login ou Cadastrar-se para abrir uma conta.");
+                return View();
+            }            
+        }
+
+        [HttpGet]
+        public ActionResult CriarConta()
+        {
             return View();
         }
         
@@ -58,7 +67,16 @@ namespace TesteITAU.Controllers
         //Functions
         private void CriarNovaConta(Conta conta)
         {
+            random = new Random();
+            conta = new Conta();
 
+            conta.NumeroConta = random.Next(1, 9999) + "-" + random.Next(1, 9);
+            conta.Saldo = 0;
+            conta.Usuario_ID = Convert.ToInt32(Session["ID"]);
+            conta.Usuario = db.Usuario.Find(Session["ID"]);
+
+            db.Conta.Add(conta);
+            db.SaveChanges();
         }
 
 

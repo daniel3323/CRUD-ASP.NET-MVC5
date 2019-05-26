@@ -27,7 +27,7 @@ namespace TesteITAU.Controllers
             sessionID = Convert.ToInt32(Session["ID"]);
 
             ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == sessionID).ToList();
-            ViewBag.Saldo = db.Contas.Where(c => c.Usuario_ID == sessionID).ToList();
+            ViewBag.Saldo = db.Conta.Where(c => c.Usuario_ID == sessionID).ToList();
             return View();
         }
 
@@ -92,7 +92,7 @@ namespace TesteITAU.Controllers
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "e";
-            lancamento.Conta = db.Contas.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();                      
+            lancamento.Conta = db.Conta.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();                      
 
             db.Lancamento.Add(lancamento);
             db.SaveChanges();
@@ -109,7 +109,7 @@ namespace TesteITAU.Controllers
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "s";
-            lancamento.Conta = db.Contas.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();
+            lancamento.Conta = db.Conta.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();
 
             db.Lancamento.Add(lancamento);
             db.SaveChanges();
