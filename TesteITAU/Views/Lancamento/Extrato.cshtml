@@ -9,10 +9,10 @@
 <table class="table" align="center">
     <tr>
         <th>
-            @Html.DisplayNameFor(lancamento => lancamento.DataLancamento)
+            @Html.DisplayNameFor(lancamento => lancamento.Data)
         </th>
         <th>
-            @Html.DisplayNameFor(lancamento => lancamento.ValorLancamento)
+            @Html.DisplayNameFor(lancamento => lancamento.Valor)
         </th>
         <th>
             @Html.DisplayNameFor(lancamento => lancamento.Conta.Saldo)
@@ -24,21 +24,21 @@
     {
         <tr>
             <td>
-                @lancamento.DataLancamento
+                @lancamento.Data
             </td>
             <td>
-                @if (lancamento.TipoLancamento == "e")
+                @if (lancamento.Tipo == "e")
                 {
-                    @(lancamento.ValorLancamento + "+")
+                    @(lancamento.Valor + "+")
                 }
                 else
                 {
-                    @(lancamento.ValorLancamento + "-")
+                    @(lancamento.Valoro + "-")
                 }
 
             </td>
             <td>
-                @lancamento.Saldo
+                @lancamento.Conta.Saldo
             </td>
         </tr>
     }

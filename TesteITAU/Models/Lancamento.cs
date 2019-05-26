@@ -10,9 +10,9 @@ namespace TesteITAU.Models
     {
         [Key]
         public int ID { get; set; }
-        public DateTime DataLancamento { get; set; }
-        public string TipoLancamento { get; set; }
-        public double ValorLancamento { get; set; }
+        public DateTime Data { get; set; }
+        public string Tipo { get; set; }
+        public double Valor { get; set; }
 
         public Conta Conta { get; set; }
     }

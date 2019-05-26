@@ -206,6 +206,10 @@
     <Compile Include="Migrations\201905251915431_v81.Designer.cs">
       <DependentUpon>201905251915431_v81.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905252302244_v9.cs" />
+    <Compile Include="Migrations\201905252302244_v9.Designer.cs">
+      <DependentUpon>201905252302244_v9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\Lancamento.cs" />
@@ -232,6 +236,8 @@
     <Content Include="Views\Conta\Extrato.cshtml" />
     <Content Include="Views\Lancamento\Extrato.cshtml" />
     <Content Include="Views\Conta\Sacar.cshtml" />
+    <Content Include="Views\Lancamento\Depositar.cshtml" />
+    <Content Include="Views\Lancamento\Sacar.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905251915431_v81.resx">
       <DependentUpon>201905251915431_v81.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905252302244_v9.resx">
+      <DependentUpon>201905252302244_v9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
