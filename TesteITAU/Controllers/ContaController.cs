@@ -25,26 +25,29 @@ namespace TesteITAU.Controllers
         public ActionResult CriarConta(Conta conta)
         {
             sessionID = Convert.ToInt32(Session["ID"]);
-
-            if(Session["ID"] != null)
+            try
             {
-                if (db.Conta.Count(c => c.Usuario_ID == sessionID) > 0) 
+                if (Session["ID"] != null)
                 {
-                    ModelState.AddModelError("", "Você já possui uma conta.");
-                    return View();                    
-                }
-                else
-                {
+                    if (db.Conta.Count(c => c.Usuario_ID == sessionID) > 0)
+                    {
+                        ModelState.AddModelError("", "Você já possui uma conta.");
+                        return View();
+                    }
+
                     CriarNovaConta(conta);
                     return RedirectToAction("Depositar", "Lancamento");
+                }
 
-                }                
-            }
-            else
-            {
                 ModelState.AddModelError("", "É necessário efetuar Login ou Cadastrar-se para abrir uma conta.");
                 return View();
-            }            
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Falha ao criar conta.");
+                return View();
+            }
+                           
         }
 
         [HttpGet]
@@ -68,10 +71,9 @@ namespace TesteITAU.Controllers
         }
 
         [HttpPost]
-        public ActionResult Sacar(Lancamento lancamento, Conta conta)
+        public void Sacar(Lancamento lancamento, Conta conta)
         {
             SacarValor(lancamento, conta);
-            return View();
         }
 
 

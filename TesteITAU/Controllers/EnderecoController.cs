@@ -35,11 +35,17 @@ namespace TesteITAU.Controllers
                     //Deserealizando conteúdo
                     dynamic jsonDeserialized = JsonConvert.DeserializeObject(responseString);
 
+
                     //Setando conteúdo no objeto "Endereço"
                     enderecoUsuario.Logradouro = jsonDeserialized.logradouro;
                     enderecoUsuario.Cidade = jsonDeserialized.localidade;
                     enderecoUsuario.Bairro = jsonDeserialized.bairro;
                     enderecoUsuario.Estado = jsonDeserialized.uf;
+
+                    if(enderecoUsuario.Logradouro == null && enderecoUsuario.Cidade == null && enderecoUsuario.Bairro == null && enderecoUsuario.Estado == null)
+                    {
+                        return Json(new { erro = true, msg = "CEP não encontrado." }, JsonRequestBehavior.AllowGet);
+                    }
 
                     return Json(enderecoUsuario, JsonRequestBehavior.AllowGet);
                 }

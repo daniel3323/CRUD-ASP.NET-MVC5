@@ -49,20 +49,23 @@ namespace TesteITAU.Controllers
                         }
                         else
                         {
-                            return Json(new { erro = true, msg = "Email já existente." });
+                            ModelState.AddModelError("Email", "E-mail já Existente.");
+                            return View(usuario);
                         }                        
                     }
                     else
                     {
-                        return Json(new { erro = true, msg = "Login já existente." });
+                        ModelState.AddModelError("Login", "Login já existente.");
+                        return View(usuario);
                     }
                 }
 
                 return View(usuario);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Json(new { erro = true, msg = ex.Message });
+                ModelState.AddModelError("", "Falha ao cadastrar usuário.");
+                return View();
             }
         }
 
@@ -80,16 +83,31 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    AlterarUsuarioCadastrado(usuario);
-
-                    return View("Index", "Home");
+                    if (db.Usuario.Where(u => u.Login == usuario.Login) != null)
+                    {
+                        if (db.Usuario.Where(u => u.Email == usuario.Email) != null)
+                        {
+                            AlterarUsuarioCadastrado(usuario);
+                            return View("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Email", "Login já existente.");
+                            return View(usuario);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Login", "Login já existente.");
+                        return View(usuario);
+                    }                        
                 }
-
                 return View(usuario);                
             }
-            catch (Exception ex)
+            catch 
             {
-                return Json(new { erro = true, msg = ex.Message });
+                ModelState.AddModelError("", "Falha ao alterar usuário.");
+                return View(usuario);
             }
         }
         

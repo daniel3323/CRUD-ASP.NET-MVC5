@@ -148,13 +148,18 @@
                     contentType: "application/json",
                     data: { cep: $("#CEP").val() },
                     success: function (result) {
-                        $("#Logradouro").val(result.Logradouro),
-                        $("#Bairro").val(result.Bairro),
-                        $("#Cidade").val(result.Cidade),
-                        $("#Estado").val(result.Estado)
+                        if (result.msg != null) {
+                            alert(result.msg)
+                        }
+                        else {
+                            $("#Logradouro").val(result.Logradouro),
+                            $("#Bairro").val(result.Bairro),
+                            $("#Cidade").val(result.Cidade),
+                            $("#Estado").val(result.Estado)    
+                        }                                            
                     },
                     error: function (result) {
-                        alert(result)
+                        alert(result.msg)
                     }
                 });
             });

@@ -51,9 +51,10 @@ namespace TesteITAU.Controllers
 
                 return View(lancamento.Valor);
             }
-            catch (Exception ex)
+            catch
             {
-                return Json(new { erro = true, msg = ex.Message });
+                ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor depositado.");
+                return View();
             }            
         }
 
@@ -71,15 +72,22 @@ namespace TesteITAU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    SacarValorLancamento(lancamento);
-                    return RedirectToAction("Extrato", "Lancamento");
+                    if(SacarValorLancamento(lancamento))
+                    {
+                        return RedirectToAction("Extrato", "Lancamento");
+                    }
+
+                    ModelState.AddModelError("", "Saldo insuficiente.");
+                    return View(lancamento);
                 }
 
+                ModelState.AddModelError("", "Falha ao realizar Saque, verifique o valor sacado.");
                 return View(lancamento.Valor);
             }
-            catch (Exception ex)
+            catch 
             {
-                return Json(new { erro = true, msg = ex.Message });
+                ModelState.AddModelError("", "Falha ao realizar Saque, verifique o valor sacado.");
+                return View();
             }
             
         }
@@ -103,7 +111,7 @@ namespace TesteITAU.Controllers
         }
 
 
-        private void SacarValorLancamento(Lancamento lancamento)
+        private bool SacarValorLancamento(Lancamento lancamento)
         {
             sessionID = Convert.ToInt32(Session["ID"]);
 
@@ -111,12 +119,19 @@ namespace TesteITAU.Controllers
             lancamento.Tipo = "s";
             lancamento.Conta = db.Conta.Where(c => c.Usuario_ID == sessionID).FirstOrDefault();
 
-            db.Lancamento.Add(lancamento);
-            db.SaveChanges();
+            if(lancamento.Conta.Saldo - lancamento.Valor >= 0)
+            {
+                db.Lancamento.Add(lancamento);
+                db.SaveChanges();
 
 
-            contaController = new ContaController();
-            contaController.Sacar(lancamento, lancamento.Conta);
+                contaController = new ContaController();
+                contaController.Sacar(lancamento, lancamento.Conta);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
