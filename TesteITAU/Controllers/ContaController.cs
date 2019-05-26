@@ -46,8 +46,7 @@ namespace TesteITAU.Controllers
             {
                 ModelState.AddModelError("", "Falha ao criar conta.");
                 return View();
-            }
-                           
+            }                           
         }
 
         [HttpGet]

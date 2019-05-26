@@ -49,12 +49,13 @@ namespace TesteITAU.Controllers
                     return RedirectToAction("Extrato", "Lancamento");
                 }
 
-                return View(lancamento.Valor);
+                ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor depositado.");
+                return View(lancamento);
             }
             catch
             {
                 ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor depositado.");
-                return View();
+                return View(lancamento);
             }            
         }
 
