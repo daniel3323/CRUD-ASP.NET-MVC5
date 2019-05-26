@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
@@ -64,6 +64,35 @@ namespace TesteITAU.Controllers
 
 
         [HttpGet]
+        public ActionResult Excluir()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Excluir(Conta conta)
+        {
+            sessionID = Convert.ToInt32(Session["ID"]);
+
+            //Passando mesmo com ID de outra pessoa
+            if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == sessionID) != null)
+            {
+                if(conta.Saldo == 0)
+                {
+                    ExcluirConta(conta);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Para excluir a conta é necessário zerar o saldo.");
+                return View(conta);
+            }
+
+            ModelState.AddModelError("", "Erro ao excluir conta, verifique as informações digitadas.");
+            return View(conta);
+        }
+
+
+        [HttpGet]
         public ActionResult Sacar()
         {
             return View();
@@ -91,6 +120,12 @@ namespace TesteITAU.Controllers
             db.SaveChanges();
         }
 
+
+        private void ExcluirConta(Conta conta)
+        {
+            db.Conta.Remove(conta);
+            db.SaveChanges();
+        }
 
 
         private void DepositarValor(Lancamento lancamento, Conta conta)

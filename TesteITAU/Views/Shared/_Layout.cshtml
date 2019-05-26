@@ -24,9 +24,6 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Lista de Usuarios", "ListarUsuarios", "Usuario")</li>
                 </ul>
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Criar Conta", "CriarConta", "Conta")</li>
-                </ul>
 
                 @if (Session["UsuarioLogado"] != null)
                 {
@@ -38,6 +35,12 @@
                     </ul>
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Saque", "Sacar", "Lancamento")</li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Criar Conta", "CriarConta", "Conta")</li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Excluir Conta", "Excluir", "Conta")</li>
                     </ul>
                     <ul class="navbar-text pull-right">
                         <li>
