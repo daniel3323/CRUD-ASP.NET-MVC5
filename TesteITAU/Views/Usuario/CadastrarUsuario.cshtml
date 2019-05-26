@@ -71,8 +71,8 @@
     <hr />
 
     <div class="form-group">
-        <div class="col-md-12">
-            <div class="col-md-3">
+        <div class="col-md-10">
+            <div class="col-md-2">
                 @Html.EditorFor(usuario => usuario.CEP, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "CEP" } })
                 @Html.ValidationMessageFor(usuario => usuario.CEP, "", new { @class = "text-danger" })
             </div> 
@@ -131,10 +131,6 @@
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
