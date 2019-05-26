@@ -10,7 +10,7 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-        private Conta conta;
+        private int sessionID;
         private Random random;
         public readonly DbContexto db;
 
@@ -23,11 +23,22 @@ namespace TesteITAU.Controllers
         //Métodos
         [HttpPost]
         public ActionResult CriarConta(Conta conta)
-        { 
+        {
+            sessionID = Convert.ToInt32(Session["ID"]);
+
             if(Session["ID"] != null)
             {
-                CriarNovaConta(conta);
-                return RedirectToAction("Depositar", "Lancamento");
+                if (db.Conta.Count(c => c.Usuario_ID == sessionID) > 0) 
+                {
+                    ModelState.AddModelError("", "Você já possui uma conta.");
+                    return View();                    
+                }
+                else
+                {
+                    CriarNovaConta(conta);
+                    return RedirectToAction("Depositar", "Lancamento");
+
+                }                
             }
             else
             {

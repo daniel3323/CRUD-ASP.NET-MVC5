@@ -1,0 +1,29 @@
+﻿@model TesteITAU.Models.Usuario
+
+@{
+    /**/
+
+    ViewBag.Title = "Criar Conta";
+}
+
+<h2>Criar Conta</h2>
+
+
+@using (Html.BeginForm("CriarConta", "Conta", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        
+        <br />
+
+        <h4>Usuario</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="submit" value="Confirmar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
