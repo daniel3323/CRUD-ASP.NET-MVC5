@@ -8,9 +8,9 @@ namespace TesteITAU.Models
 {
     public class Login
     {
-        [Required(ErrorMessage = "O Login é Obrigatório.", AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false)]
         public string LoginUsuario { get; set; }
-        [Required(ErrorMessage = "Senha é Obrigatório.", AllowEmptyStrings = false)]
+        [Required(AllowEmptyStrings = false)]
         public string Senha { get; set; }
     }
 }

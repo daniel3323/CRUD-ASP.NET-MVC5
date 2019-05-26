@@ -36,14 +36,53 @@ namespace TesteITAU.Controllers
         {
             usuarioController = new UsuarioController();
 
-            if(db.Usuario.Where(u => u.Login == login.LoginUsuario) != null)
+            if (ModelState.IsValid)
             {
-                if(db.Usuario.Where(u => u.Login == login.Senha) != null)
+                if (db.Usuario.Any(u => u.Login == login.LoginUsuario && u.Login == login.Senha))
                 {
-                    return usuarioController.Logar(login);
-                }                
+                    LogarValidado(login);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login ou Senha incorretos.");
+                }
             }
+            else
+            {
+                ModelState.AddModelError("","Login ou Senha incorretos.");
+                return View();
+            }
+
             return View(login);
+        }
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Response.Cookies.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        //Functions
+        private void LogarValidado(Login login)
+        {
+            using (DbContexto db = new DbContexto())
+            {
+                var validaAcesso = db.Usuario.Where(u => u.Login.Equals(login.LoginUsuario) && u.Senha.Equals(login.Senha)).FirstOrDefault();
+
+                if (validaAcesso.Senha == login.Senha && validaAcesso.Login == login.LoginUsuario)
+                {
+                    Session["Nome"] = validaAcesso.Nome;
+                    Session["Sobrenome"] = validaAcesso.Sobrenome;
+                    Session["ID"] = validaAcesso.ID;
+                    Session["UsuarioLogado"] = true;
+                }
+            }
         }
     }
 }

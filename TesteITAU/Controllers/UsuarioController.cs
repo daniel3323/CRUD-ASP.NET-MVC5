@@ -24,40 +24,8 @@ namespace TesteITAU.Controllers
         {
             ViewBag.Usuarios = db.Usuario.ToList();
             return View();
-        }       
-
-
-        [HttpGet]
-        public ActionResult Logar()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Logar(Login login)
-        {
-            if(ModelState.IsValid)
-            {
-                LogarValidado(login);
-                return RedirectToAction("ListarUsuarios", "Usuario");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Login ou Senha incorretos.");
-                return View();
-            }
-        }
-
-
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            Session.Abandon();
-            Session.Clear();
-            Response.Cookies.Clear();
-            return RedirectToAction("Index", "Home");
-        }
-
+        }    
+        
 
         [HttpGet]
         public ActionResult CadastrarUsuario()
@@ -72,9 +40,9 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    if(db.Usuario.Where(u => u.Login == usuario.Login) == null)
+                    if(db.Usuario.Any(u => u.Login == usuario.Login))
                     {
-                        if(db.Usuario.Where(u => u.Email == usuario.Email) == null)
+                        if(db.Usuario.Any(u => u.Email == usuario.Email))
                         {
                             CadastrarNovoUsuario(usuario);
                             return RedirectToAction("Logar", "Usuario");
@@ -137,22 +105,6 @@ namespace TesteITAU.Controllers
         {
             db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
-        }
-
-        private void LogarValidado(Login login)
-        {
-            using (DbContexto db = new DbContexto())
-            {
-                var validaAcesso = db.Usuario.Where(u => u.Login.Equals(login.LoginUsuario)).FirstOrDefault();
-
-                if (validaAcesso.Senha == login.Senha && validaAcesso.Login == login.LoginUsuario)
-                {
-                    Session["Nome"] = validaAcesso.Nome;
-                    Session["Sobrenome"] = validaAcesso.Sobrenome;
-                    Session["ID"] = validaAcesso.ID;
-                    Session["UsuarioLogado"] = true;
-                }
-            }
         }
     }
 }
