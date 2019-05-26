@@ -13,6 +13,8 @@ namespace TesteITAU.Models
         public int ID { get; set; }
         public DateTime Data { get; set; }
         public string Tipo { get; set; }
+        [Required(ErrorMessage = "Valor Incorreto.", AllowEmptyStrings = false)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public double Valor { get; set; }
 
         [ForeignKey("Conta")]

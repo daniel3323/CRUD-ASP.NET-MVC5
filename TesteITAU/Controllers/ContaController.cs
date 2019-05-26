@@ -10,7 +10,7 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-
+        Random random = new Random();
         public readonly DbContexto db;
 
         public ContaController()
@@ -20,6 +20,20 @@ namespace TesteITAU.Controllers
         
 
         //Métodos
+        [HttpGet]
+        public ActionResult CriarConta()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CriarConta(Conta conta)
+        {
+            CriarNovaConta(conta);
+            return View();
+        }
+        
+
         [HttpPost]
         public void Depositar(Lancamento lancamento, Conta conta)
         {
@@ -42,6 +56,13 @@ namespace TesteITAU.Controllers
 
 
         //Functions
+        private void CriarNovaConta(Conta conta)
+        {
+
+        }
+
+
+
         private void DepositarValor(Lancamento lancamento, Conta conta)
         {
             conta.Saldo += lancamento.Valor;

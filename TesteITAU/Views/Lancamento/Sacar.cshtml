@@ -14,9 +14,8 @@
         <h4>Insira o valor da transação</h4>
 
         <div class="form-group">
-            @Html.LabelFor(lancamento => lancamento.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(lancamento => lancamento.Valor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(lancamento => lancamento.Valor, new { htmlAttributes = new { @class = "form-control", @placeholder = "Insira o valor do Saque" } })
                 @Html.ValidationMessageFor(lancamento => lancamento.Valor, "", new { @class = "text-danger" })
             </div>
         </div>

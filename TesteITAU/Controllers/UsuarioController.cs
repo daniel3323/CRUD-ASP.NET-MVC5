@@ -70,9 +70,13 @@ namespace TesteITAU.Controllers
         {
             try
             {
-                CadastrarNovoUsuario(usuario);
-                return RedirectToAction("Logar", "Usuario");
-                //return Json(new { erro = false, msg = "Cadastrado" });
+                if(ModelState.IsValid)
+                {
+                    CadastrarNovoUsuario(usuario);
+                    return RedirectToAction("Logar", "Usuario");
+                }
+
+                return View(usuario);
             }
             catch (Exception ex)
             {
@@ -90,9 +94,21 @@ namespace TesteITAU.Controllers
         [HttpPost]
         public ActionResult AlterarUsuario(Usuario usuario)
         {
-            AlterarUsuarioCadastrado(usuario);
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    AlterarUsuarioCadastrado(usuario);
 
-            return View("Index", "Home");            
+                    return View("Index", "Home");
+                }
+
+                return View(usuario);                
+            }
+            catch (Exception ex)
+            {
+                return Json(new { erro = true, msg = ex.Message });
+            }
         }
         
 

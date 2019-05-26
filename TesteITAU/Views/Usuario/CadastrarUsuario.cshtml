@@ -17,33 +17,29 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Nome, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Nome, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "Nome" } })
             @Html.ValidationMessageFor(usuario => usuario.Nome, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Sobrenome, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Sobrenome, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Sobrenome, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "Sobrenome" } })
             @Html.ValidationMessageFor(usuario => usuario.Sobrenome, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Email, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Email, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "E-mail" } })
             @Html.ValidationMessageFor(usuario => usuario.Email, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Telefone, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Telefone, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Telefone, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "Telefone" } })
             @Html.ValidationMessageFor(usuario => usuario.Telefone, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -55,17 +51,15 @@
     <hr />
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Login, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Login, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Login, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "Login" } })
             @Html.ValidationMessageFor(usuario => usuario.Login, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Senha, new { htmlAttributes = new { @class = "form-control", @required = "true", @type = "password" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Senha, new { htmlAttributes = new { @class = "form-control", @required = "true", @type = "password", @placeholder = "Senha"} })
             @Html.ValidationMessageFor(usuario => usuario.Senha, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -77,69 +71,61 @@
     <hr />
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.CEP, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
-            @Html.ValidationMessageFor(usuario => usuario.CEP, "", new { @class = "text-danger" })
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="button" value="Consultar" id="btnConsultar" class="btn btn-info" />
-                </div>
-            </div>
+        <div class="col-md-12">
+            <div class="col-md-3">
+                @Html.EditorFor(usuario => usuario.CEP, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "CEP" } })
+                @Html.ValidationMessageFor(usuario => usuario.CEP, "", new { @class = "text-danger" })
+            </div> 
+            <div class="col-md-2">
+                <input type="button" value="Consultar" id="btnConsultar" class="btn btn-info" />
+            </div>  
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Logradouro, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Logradouro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Logradouro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @placeholder = "Logradouro" } })
             @Html.ValidationMessageFor(usuario => usuario.Logradouro, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Numero, new { htmlAttributes = new { @class = "form-control", @required = "true" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Numero, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "Número" } })
             @Html.ValidationMessageFor(usuario => usuario.Numero, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Complemento, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Complemento, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Complemento, new { htmlAttributes = new { @class = "form-control", @placeholder = "Complemento" } })
             @Html.ValidationMessageFor(usuario => usuario.Complemento, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Bairro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Bairro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @placeholder = "Bairro" } })
             @Html.ValidationMessageFor(usuario => usuario.Bairro, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Cidade, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Cidade, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @placeholder = "Cidade" } })
             @Html.ValidationMessageFor(usuario => usuario.Cidade, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(usuario => usuario.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(usuario => usuario.Estado, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        <div class="col-md-12">
+            @Html.EditorFor(usuario => usuario.Estado, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @placeholder = "Estado - UF" } })
             @Html.ValidationMessageFor(usuario => usuario.Estado, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-12">
             <input type="submit" value="Confirmar" class="btn btn-success" />
         </div>
     </div>

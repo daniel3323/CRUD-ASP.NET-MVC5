@@ -26,7 +26,7 @@ namespace TesteITAU.Controllers
         {
             sessionID = Convert.ToInt32(Session["ID"]);
 
-            ViewBag.Lancamentos = db.Lancamento.Where(c => c.Conta.Usuario_ID == sessionID).ToList();
+            ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == sessionID).ToList();
             return View();
         }
 
@@ -40,8 +40,20 @@ namespace TesteITAU.Controllers
         [HttpPost]
         public ActionResult Depositar(Lancamento lancamento)
         {
-            DepositarValorLancamento(lancamento);
-            return RedirectToAction("Extrato", "Lancamento");
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    DepositarValorLancamento(lancamento);
+                    return RedirectToAction("Extrato", "Lancamento");
+                }
+
+                return View(lancamento.Valor);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { erro = true, msg = ex.Message });
+            }            
         }
 
 
@@ -54,8 +66,21 @@ namespace TesteITAU.Controllers
         [HttpPost]
         public ActionResult Sacar(Lancamento lancamento)
         {
-            SacarValorLancamento(lancamento);
-            return RedirectToAction("Extrato", "Lancamento");
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    SacarValorLancamento(lancamento);
+                    return RedirectToAction("Extrato", "Lancamento");
+                }
+
+                return View(lancamento.Valor);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { erro = true, msg = ex.Message });
+            }
+            
         }
 
 

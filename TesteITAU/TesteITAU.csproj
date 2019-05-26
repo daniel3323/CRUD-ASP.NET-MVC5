@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201905260030170_v91.Designer.cs">
       <DependentUpon>201905260030170_v91.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905260156309_v10.cs" />
+    <Compile Include="Migrations\201905260156309_v10.Designer.cs">
+      <DependentUpon>201905260156309_v10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\Lancamento.cs" />
@@ -349,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905260030170_v91.resx">
       <DependentUpon>201905260030170_v91.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905260156309_v10.resx">
+      <DependentUpon>201905260156309_v10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
