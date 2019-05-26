@@ -145,6 +145,7 @@
     <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LancamentoController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DbContexto.cs" />
     <Compile Include="Global.asax.cs">
@@ -222,9 +223,14 @@
     <Compile Include="Migrations\201905260237095_v92.Designer.cs">
       <DependentUpon>201905260237095_v92.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905260309524_v11.cs" />
+    <Compile Include="Migrations\201905260309524_v11.Designer.cs">
+      <DependentUpon>201905260309524_v11.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\Lancamento.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,11 +248,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Views\Usuario\ListarUsuarios.cshtml" />
     <Content Include="Views\Usuario\CadastrarUsuario.cshtml" />
-    <Content Include="Views\Usuario\Logar.cshtml" />
     <Content Include="Views\Usuario\AlterarUsuario.cshtml" />
     <Content Include="Views\Lancamento\Extrato.cshtml" />
     <Content Include="Views\Lancamento\Depositar.cshtml" />
     <Content Include="Views\Lancamento\Sacar.cshtml" />
+    <Content Include="Views\Login\Logar.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -363,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905260237095_v92.resx">
       <DependentUpon>201905260237095_v92.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905260309524_v11.resx">
+      <DependentUpon>201905260309524_v11.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

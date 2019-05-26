@@ -601,3 +601,4 @@ C:\Users\danie\Desktop\crud-asp.net-mvc5\crud-asp.net-mvc5\TesteITAU\obj\Debug\T
 C:\Users\danie\Desktop\crud-asp.net-mvc5\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v91.resources
 C:\Users\danie\Desktop\crud-asp.net-mvc5\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v10.resources
 C:\Users\danie\Desktop\crud-asp.net-mvc5\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v92.resources
+C:\Users\danie\Desktop\crud-asp.net-mvc5\crud-asp.net-mvc5\TesteITAU\obj\Debug\TesteITAU.Migrations.v11.resources

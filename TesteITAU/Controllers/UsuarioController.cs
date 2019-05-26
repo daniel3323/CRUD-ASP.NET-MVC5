@@ -34,11 +34,11 @@ namespace TesteITAU.Controllers
         }
 
         [HttpPost]
-        public ActionResult Logar(Usuario usuario)
+        public ActionResult Logar(Login login)
         {
             if(ModelState.IsValid)
             {
-                LogarValidado(usuario);
+                LogarValidado(login);
                 return RedirectToAction("ListarUsuarios", "Usuario");
             }
             else
@@ -72,8 +72,22 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    CadastrarNovoUsuario(usuario);
-                    return RedirectToAction("Logar", "Usuario");
+                    if(db.Usuario.Where(u => u.Login == usuario.Login) == null)
+                    {
+                        if(db.Usuario.Where(u => u.Email == usuario.Email) == null)
+                        {
+                            CadastrarNovoUsuario(usuario);
+                            return RedirectToAction("Logar", "Usuario");
+                        }
+                        else
+                        {
+                            return Json(new { erro = true, msg = "Email já existente." });
+                        }                        
+                    }
+                    else
+                    {
+                        return Json(new { erro = true, msg = "Login já existente." });
+                    }
                 }
 
                 return View(usuario);
@@ -125,13 +139,13 @@ namespace TesteITAU.Controllers
             db.SaveChanges();
         }
 
-        private void LogarValidado(Usuario usuario)
+        private void LogarValidado(Login login)
         {
             using (DbContexto db = new DbContexto())
             {
-                var validaAcesso = db.Usuario.Where(u => u.Login.Equals(usuario.Login)).FirstOrDefault();
+                var validaAcesso = db.Usuario.Where(u => u.Login.Equals(login.LoginUsuario)).FirstOrDefault();
 
-                if (validaAcesso.Senha == usuario.Senha && validaAcesso.Login == usuario.Login)
+                if (validaAcesso.Senha == login.Senha && validaAcesso.Login == login.LoginUsuario)
                 {
                     Session["Nome"] = validaAcesso.Nome;
                     Session["Sobrenome"] = validaAcesso.Sobrenome;
