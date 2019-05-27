@@ -40,9 +40,9 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    if(db.Usuario.Where(u => u.Login == usuario.Login) != null)
+                    if(db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count == 0 )
                     {
-                        if(db.Usuario.Where(u => u.Email == usuario.Email) != null)
+                        if(db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count == 0 )
                         {
                             CadastrarNovoUsuario(usuario);
                             return RedirectToAction("Logar", "Login");
@@ -83,9 +83,9 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    if (db.Usuario.Where(u => u.Login == usuario.Login) != null)
+                    if (db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count == 0)
                     {
-                        if (db.Usuario.Where(u => u.Email == usuario.Email) != null)
+                        if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count == 0)
                         {
                             AlterarUsuarioCadastrado(usuario);
                             return View("Index", "Home");

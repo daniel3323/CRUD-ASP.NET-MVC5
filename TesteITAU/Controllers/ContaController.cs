@@ -13,7 +13,7 @@ namespace TesteITAU.Controllers
         private int sessionID;
         private Random random;
         public readonly DbContexto db;
-
+         
         public ContaController()
         {
             db = new DbContexto();
@@ -21,10 +21,26 @@ namespace TesteITAU.Controllers
         
 
         //Métodos
+        [HttpGet]
+        public ActionResult ExibirDadosConta(Conta conta)
+        {
+            try
+            {     
+                return View(conta);
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Erro ao exibir dados bancários. Verifique se você está conectado corretamente no sistema.");
+                return View();
+            }            
+        }
+
+
         [HttpPost]
         public ActionResult CriarConta(Conta conta)
         {
             sessionID = Convert.ToInt32(Session["ID"]);
+
             try
             {
                 if (Session["ID"] != null)
@@ -32,11 +48,11 @@ namespace TesteITAU.Controllers
                     if (db.Conta.Count(c => c.Usuario_ID == sessionID) > 0)
                     {
                         ModelState.AddModelError("", "Você já possui uma conta.");
-                        return View();
+                        return View(conta); ;
                     }
 
                     CriarNovaConta(conta);
-                    return RedirectToAction("Depositar", "Lancamento");
+                    return View("ExibirDadosConta", db.Conta.Where(c => c.Usuario_ID == conta.Usuario_ID));
                 }
 
                 ModelState.AddModelError("", "É necessário efetuar Login ou Cadastrar-se para abrir uma conta.");
@@ -122,6 +138,14 @@ namespace TesteITAU.Controllers
 
         private void ExcluirConta(Conta conta)
         {
+            //conta.Usuario = db.Usuario.Find(Session["ID"]);
+            //var contaQuery = db.Conta.Where(c => c.NumeroConta == conta.NumeroConta).Select(c => new Conta
+            //{
+            //    ID = c.ID,
+            //    Saldo = c.Saldo,
+            //    NumeroConta = c.NumeroConta
+            //});
+
             db.Conta.Remove(conta);
             db.SaveChanges();
         }
