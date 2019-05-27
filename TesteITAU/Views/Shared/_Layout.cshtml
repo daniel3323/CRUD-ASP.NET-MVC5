@@ -21,9 +21,6 @@
                 @Html.ActionLink("• Bank Simulation •", "Index", "", new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Lista de Usuarios", "ListarUsuarios", "Usuario")</li>
-                </ul>
 
                 @if (Session["UsuarioLogado"] != null)
                 {
@@ -68,7 +65,6 @@
     </div>
     <div class="container body-content" align="center">
         @RenderBody()
-        <br />
         <br />
         <br />
 

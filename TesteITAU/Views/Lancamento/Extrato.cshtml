@@ -7,14 +7,28 @@
 <h2>Extrato - Ultimas Transações</h2>
 
 <br />   
-<div class="col-md12">
-    <div class="col-md-4">
-        <h1>@ViewBag.Conta.Saldo</h1>
-        <h4>Saldo</h4>
-    </div>
+<div class="col-md12" style="display: flex; flex-direction:column; justify-content: center;">
+    @if(Session["ID"] != null)
+    {
+        <div class="col-md-5">
+            <h1>R$ @ViewBag.Conta.Saldo</h1>
+            <h4>Saldo</h4>
+        </div>
+
+        <br />
+        <br />
+    }
+    else
+    {
+        <div class="col-md-5">
+            <h1>R$ 0,00</h1>
+            <h4>Saldo</h4>
+        </div>
+    }
+
     @if (ViewBag.Lancamentos.Count > 0)
     {        
-        <div class="col-md-7">
+        <div class="col-md-6">
             <table class="table" align="center">
                 <tr>
                     <th>
