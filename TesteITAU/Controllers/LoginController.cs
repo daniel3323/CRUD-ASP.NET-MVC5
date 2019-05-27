@@ -35,10 +35,12 @@ namespace TesteITAU.Controllers
         public ActionResult Logar(Login login)
         {
             usuarioController = new UsuarioController();
+ 
+            var a = db.Usuario.Where(u => u.Login == login.LoginUsuario && u.Login == login.Senha);
 
             if (ModelState.IsValid)
             {
-                if (db.Usuario.Where(u => u.Login == login.LoginUsuario && u.Login == login.Senha) != null)
+                if (db.Usuario.Where(u => u.Login == login.LoginUsuario && u.Senha == login.Senha).ToList().Count > 0)
                 {
                     LogarValidado(login);
                     return RedirectToAction("Index", "Home");

@@ -74,8 +74,7 @@ namespace TesteITAU.Controllers
         {
             sessionID = Convert.ToInt32(Session["ID"]);
 
-            //Passando mesmo com ID de outra pessoa
-            if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == sessionID) != null)
+            if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == sessionID).ToList().Count > 0)
             {
                 if(conta.Saldo == 0)
                 {

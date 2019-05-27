@@ -7,13 +7,13 @@ namespace TesteITAU.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class v42 : IMigrationMetadata
+    public sealed partial class v1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(v42));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(v1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905241613519_v42"; }
+            get { return "201905271138388_v1"; }
         }
         
         string IMigrationMetadata.Source
