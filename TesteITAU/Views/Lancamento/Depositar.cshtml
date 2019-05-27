@@ -6,10 +6,10 @@
 
 <h2>Depósito</h2>
 
-@using (Html.BeginForm("Depositar", "Lancamento", FormMethod.Post)) 
+@using (Html.BeginForm("Depositar", "Lancamento", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
 
         <br />
@@ -33,3 +33,26 @@
         </div>
     </div>
 }
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        //$('#ValorTelefone').mask('1.000.000.000,00');
+
+        ////$(document).ready(function () {
+        ////    $("#Valor").mask('decimal', {
+        ////        'alias': 'numeric',
+        ////        'groupSeparator': ',',
+        ////        'autoGroup': true,
+        ////        'digits': 2,
+        ////        'radixPoint': ".",
+        ////        'digitsOptional': false,
+        ////        'allowMinus': false,
+        ////        'prefix': 'R$ ',
+        ////        'placeholder': ''
+        ////    });
+    </script>
+}
+

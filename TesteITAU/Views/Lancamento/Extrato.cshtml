@@ -6,46 +6,53 @@
 
 <h2>Extrato - Ultimas Transações</h2>
 
-<br />
+<br />   
+<div class="col-md12">
+    <div class="col-md-4">
+        <h1>@ViewBag.Conta.Saldo</h1>
+        <h4>Saldo</h4>
+    </div>
+    @if (ViewBag.Lancamentos.Count > 0)
+    {        
+        <div class="col-md-7">
+            <table class="table" align="center">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(lancamento => lancamento.Data)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(lancamento => lancamento.Valor)
+                    </th>
+                    <th></th>
+                </tr>
 
-@if (ViewBag.Lancamentos.Count > 0)
-{
-    <table class="table" align="center">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(lancamento => lancamento.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(lancamento => lancamento.Valor)
-            </th>
-            <th></th>
-        </tr>
+                @foreach (var lancamento in ViewBag.Lancamentos)
+                {
+                    <tr>
+                        <td>
+                            @lancamento.Data
+                        </td>
+                        <td>
+                            @if (lancamento.Tipo == "e")
+                            {
+                                @(lancamento.Valor + "+")
+                            }
+                            else
+                            {
+                                @(lancamento.Valor + "-")
+                            }
 
-        @foreach (var lancamento in ViewBag.Lancamentos)
-        {
-            <tr>
-                <td>
-                    @lancamento.Data
-                </td>
-                <td>
-                    @if (lancamento.Tipo == "e")
-                    {
-                        @(lancamento.Valor + "+")
-                    }
-                    else
-                    {
-                        @(lancamento.Valor + "-")
-                    }
-
-                </td>
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <h3>Não existem lançamentos.</h3>
-}
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+    else
+    {
+        <h3>Não existem lançamentos.</h3>
+    }
+</div>
 
 
 @section Scripts {
