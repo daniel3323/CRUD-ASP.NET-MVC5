@@ -89,83 +89,97 @@ namespace TesteITAU.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    var usuarioSessao = Session["ID"];
-                    Usuario user = db.Usuario.Find(Session["ID"]);
-
-                    if (usuario.Email == user.Email)
+                    if(usuario.Senha.Length >= 8)
                     {
-                        if (usuario.Login == user.Login)
-                        {
-                            if(usuario.Senha.Length >= 8)
-                            {
-                                user = null;
-
-                                AlterarUsuarioCadastrado(usuario);
-                                return View("Index", "Home");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
-                                return View(usuario);
-                            }  
-                        }
-                        else
-                        {
-                            if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count > 0)
-                            {
-                                ModelState.AddModelError("Login", "Login já existente.");
-                                return View(usuario);
-                            }
-                            else
-                            {
-                                if (usuario.Senha.Length >= 8)
-                                {
-                                    user = null;
-
-                                    AlterarUsuarioCadastrado(usuario);
-                                    return View("Index", "Home");
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
-                                    return View(usuario);
-                                }
-                            }
-                        }
+                        AlterarUsuarioCadastrado(usuario);
+                        return RedirectToAction("Index", "Home");
                     }
-                    else
-                    {
-                        if(db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count > 0)
-                        {
-                            ModelState.AddModelError("Email", "Email já existente.");
-                            return View(usuario);
-                        }
-                        else
-                        {
-                            if (usuario.Senha.Length >= 8)
-                            {
-                                user = null;
 
-                                AlterarUsuarioCadastrado(usuario);
-                                return View("Index", "Home");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
-                                return View(usuario);
-                            }
-                        }
-                    }                        
+                    ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+                    return View(usuario);
                 }
-                return View(usuario);                
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Falha ao alterar usuário. Tente novamente mais tarde.");
+
+                ModelState.AddModelError("", "Verifique as informações digitadas e os campos obrigatórios.");
                 return View(usuario);
             }
+            catch
+            {
+                ModelState.AddModelError("", "Falha ao atualizar cadastro.");
+                return View(usuario);
+            }
+
+            //try
+            //{
+            //    if(ModelState.IsValid)
+            //    {
+            //        if (usuario.Email == db.Usuario.Find(usuario.ID).Email)
+            //        {
+            //            if (usuario.Login == db.Usuario.Find(usuario.ID).Login)
+            //            {
+            //                if (usuario.Senha.Length >= 8)
+            //                {   
+            //                    AlterarUsuarioCadastrado(usuario);
+            //                    return View("Index", "Home");
+            //                }
+            //                else
+            //                {
+            //                    ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+            //                    return View(usuario);
+            //                }  
+            //            }
+            //            else
+            //            {
+            //                if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count > 0)
+            //                {
+            //                    ModelState.AddModelError("Login", "Login já existente.");
+            //                    return View(usuario);
+            //                }
+            //                else
+            //                {
+            //                    if (usuario.Senha.Length >= 8)
+            //                    {
+            //                        AlterarUsuarioCadastrado(usuario);
+            //                        return View("Index", "Home");
+            //                    }
+            //                    else
+            //                    {
+            //                        ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+            //                        return View(usuario);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            if(db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count > 0)
+            //            {
+            //                ModelState.AddModelError("Email", "Email já existente.");
+            //                return View(usuario);
+            //            }
+            //            else
+            //            {
+            //                if (usuario.Senha.Length >= 8)
+            //                {
+            //                    AlterarUsuarioCadastrado(usuario);
+            //                    return View("Index", "Home");
+            //                }
+            //                else
+            //                {
+            //                    ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+            //                    return View(usuario);
+            //                }
+            //            }
+            //        }                        
+            //    }
+            //    return View(usuario);                
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("", "Falha ao alterar usuário. Tente novamente mais tarde.");
+            //    return View(usuario);
+            //}
         }
         
 
