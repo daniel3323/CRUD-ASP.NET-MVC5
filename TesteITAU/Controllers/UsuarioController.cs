@@ -51,7 +51,7 @@ namespace TesteITAU.Controllers
                             }
                             else
                             {
-                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres..");
+                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
                                 return View(usuario);
                             }                                
                         }
@@ -72,7 +72,7 @@ namespace TesteITAU.Controllers
             }
             catch 
             {
-                ModelState.AddModelError("", "Falha ao cadastrar usuário.");
+                ModelState.AddModelError("", "Falha ao cadastrar usuário. Tente novamente mais tarde.");
                 return View();
             }
         }
@@ -102,7 +102,7 @@ namespace TesteITAU.Controllers
                             }
                             else
                             {
-                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres..");
+                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
                                 return View(usuario);
                             }  
                         }
@@ -122,7 +122,7 @@ namespace TesteITAU.Controllers
             }
             catch 
             {
-                ModelState.AddModelError("", "Falha ao alterar usuário.");
+                ModelState.AddModelError("", "Falha ao alterar usuário. Tente novamente mais tarde.");
                 return View(usuario);
             }
         }
