@@ -40,8 +40,8 @@
             @Html.ValidationMessageFor(usuario => usuario.Telefone, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="row" />
-    <div class="row" />
+    <br />
+    <br />
     <h4>Dados de Acesso</h4>
     <hr />
     <div class="form-group">
@@ -56,12 +56,12 @@
             @Html.ValidationMessageFor(usuario => usuario.Senha, "", new { @class = "text-danger" })
         </div>
     </div>
-    @*<div class="row" />
-    <div class="row" />*@
+    <br />
+    <br />
     <h4>Endereço</h4>
     <hr />
     <div class="form-group">
-        <div class="row col-md-13" style="display: flex; justify-content: center;">
+        <div class="row col-md-12" style="display: flex; justify-content: center;">
             <div class="col-md-2">
                 @Html.EditorFor(usuario => usuario.CEP, new { htmlAttributes = new { @class = "form-control", @required = "true", @placeholder = "CEP" } })
                 @Html.ValidationMessageFor(usuario => usuario.CEP, "", new { @class = "text-danger" })

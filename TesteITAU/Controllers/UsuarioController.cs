@@ -91,12 +91,17 @@ namespace TesteITAU.Controllers
             {
                 if(ModelState.IsValid)
                 {
-                    if (db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count == 0)
+                    var usuarioSessao = Session["ID"];
+                    Usuario user = db.Usuario.Find(Session["ID"]);
+
+                    if (usuario.Email == user.Email)
                     {
-                        if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count == 0)
+                        if (usuario.Login == user.Login)
                         {
                             if(usuario.Senha.Length >= 8)
                             {
+                                user = null;
+
                                 AlterarUsuarioCadastrado(usuario);
                                 return View("Index", "Home");
                             }
@@ -108,19 +113,55 @@ namespace TesteITAU.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("Email", "Login já existente.");
-                            return View(usuario);
+                            if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count > 0)
+                            {
+                                ModelState.AddModelError("Login", "Login já existente.");
+                                return View(usuario);
+                            }
+                            else
+                            {
+                                if (usuario.Senha.Length >= 8)
+                                {
+                                    user = null;
+
+                                    AlterarUsuarioCadastrado(usuario);
+                                    return View("Index", "Home");
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+                                    return View(usuario);
+                                }
+                            }
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("Login", "Login já existente.");
-                        return View(usuario);
+                        if(db.Usuario.Where(u => u.Email == usuario.Email).ToList().Count > 0)
+                        {
+                            ModelState.AddModelError("Email", "Email já existente.");
+                            return View(usuario);
+                        }
+                        else
+                        {
+                            if (usuario.Senha.Length >= 8)
+                            {
+                                user = null;
+
+                                AlterarUsuarioCadastrado(usuario);
+                                return View("Index", "Home");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres.");
+                                return View(usuario);
+                            }
+                        }
                     }                        
                 }
                 return View(usuario);                
             }
-            catch 
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "Falha ao alterar usuário. Tente novamente mais tarde.");
                 return View(usuario);

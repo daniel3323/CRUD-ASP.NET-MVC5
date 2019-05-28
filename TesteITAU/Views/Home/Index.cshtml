@@ -6,4 +6,37 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>Index</h2>
+<h1> Bem-vindo </h1>
+
+<div class="container">
+    @if (Session["ID"] == null)
+    {
+        <div class="row">
+            <h3>Por favor, logue-se no sistema para utilizar todas as funcionalidades.</h3>
+        </div>
+    }
+    else
+    {
+        if (ViewBag.Conta != null)
+        {
+            <br />
+            <div class="row">
+                <h3>Conta Número: @ViewBag.Conta.NumeroConta</h3>
+            </div>
+            <br />
+            <br />
+            <div class="row">
+                <h3>Seu saldo atual é: </h3><h1>R$ @ViewBag.Conta.Saldo</h1>
+            </div>
+        }
+        else
+        {
+            <br />
+            <div class="row">
+                <h2>Ainda não possui uma conta? Clique @Html.ActionLink("AQUI", "CriarConta", "Conta")</h2>
+                <div class="form-group">
+                </div>
+            </div>
+        }
+    }
+</div>

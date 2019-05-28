@@ -48,7 +48,7 @@ namespace TesteITAU.Controllers
                     if (conta != null)
                     {
                         ModelState.AddModelError("", "Você já possui uma conta.");                        
-                        return RedirectToAction("ExibirDadosConta", conta);
+                        return View();
                     }
 
                     return RedirectToAction("ExibirDadosConta", CriarNovaConta(conta));

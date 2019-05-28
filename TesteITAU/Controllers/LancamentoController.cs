@@ -27,6 +27,7 @@ namespace TesteITAU.Controllers
 
             ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == usuarioSessao.ID).ToList();
             ViewBag.Conta = db.Conta.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
+
             return View();
         }
 
@@ -41,11 +42,19 @@ namespace TesteITAU.Controllers
         public ActionResult Depositar(Lancamento lancamento)
         {
             try
-            {
+            {           
                 if (ModelState.IsValid)
                 {
-                    DepositarValorLancamento(lancamento);
-                    return RedirectToAction("Extrato", "Lancamento");
+                    var usuarioSessao = db.Usuario.Find(Session["ID"]);
+
+                    if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
+                    {
+                        DepositarValorLancamento(lancamento);
+                        return RedirectToAction("Extrato", "Lancamento");
+                    }
+
+                    ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
+                    return View(lancamento);
                 }
 
                 ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor inserido.");
@@ -72,9 +81,14 @@ namespace TesteITAU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (SacarValorLancamento(lancamento))
+                    var usuarioSessao = db.Usuario.Find(Session["ID"]);
+
+                    if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
                     {
-                        return RedirectToAction("Extrato", "Lancamento");
+                        if (SacarValorLancamento(lancamento))
+                        {
+                            return RedirectToAction("Extrato", "Lancamento");
+                        }
                     }
 
                     ModelState.AddModelError("", "Saldo insuficiente.");
