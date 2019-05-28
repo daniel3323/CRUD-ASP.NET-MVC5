@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
@@ -10,49 +10,48 @@ namespace TesteITAU.Controllers
 {
     public class ContaController : Controller
     {
-        private int sessionID;
         private Random random;
-        public readonly DbContexto db;
-         
+        private readonly DbContexto db;
+
         public ContaController()
         {
             db = new DbContexto();
         }
-        
+
 
         //Métodos
         [HttpGet]
         public ActionResult ExibirDadosConta(Conta conta)
         {
             try
-            {     
+            {
                 return View(conta);
             }
             catch
             {
                 ModelState.AddModelError("", "Erro ao exibir dados bancários. Verifique se você está conectado corretamente no sistema.");
                 return View();
-            }            
+            }
         }
 
 
         [HttpPost]
         public ActionResult CriarConta(Conta conta)
         {
-            sessionID = Convert.ToInt32(Session["ID"]);
-
             try
             {
-                if (Session["ID"] != null)
+                var usuarioSessao = Session["ID"];
+                conta = db.Usuario.Find(usuarioSessao).Contas.FirstOrDefault();
+
+                if (usuarioSessao != null)
                 {
-                    if (db.Conta.Count(c => c.Usuario_ID == sessionID) > 0)
+                    if (conta != null)
                     {
-                        ModelState.AddModelError("", "Você já possui uma conta.");
-                        return View(conta); ;
+                        ModelState.AddModelError("", "Você já possui uma conta.");                        
+                        return RedirectToAction("ExibirDadosConta", conta);
                     }
 
-                    CriarNovaConta(conta);
-                    return View("ExibirDadosConta", db.Conta.Where(c => c.Usuario_ID == conta.Usuario_ID));
+                    return RedirectToAction("ExibirDadosConta", CriarNovaConta(conta));
                 }
 
                 ModelState.AddModelError("", "É necessário efetuar Login ou Cadastrar-se para abrir uma conta.");
@@ -62,7 +61,7 @@ namespace TesteITAU.Controllers
             {
                 ModelState.AddModelError("", "Falha ao criar conta.");
                 return View();
-            }                           
+            }
         }
 
         [HttpGet]
@@ -70,7 +69,7 @@ namespace TesteITAU.Controllers
         {
             return View();
         }
-        
+
 
         [HttpPost]
         public void Depositar(Lancamento lancamento, Conta conta)
@@ -88,22 +87,32 @@ namespace TesteITAU.Controllers
         [HttpPost]
         public ActionResult Excluir(Conta conta)
         {
-            sessionID = Convert.ToInt32(Session["ID"]);
-
-            if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == sessionID).ToList().Count > 0)
+            try
             {
-                if(conta.Saldo == 0)
+                var usuarioSessao = db.Usuario.Find(Session["ID"]);
+                conta = db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault();
+
+                if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == usuarioSessao.ID).ToList().Count > 0)
                 {
-                    ExcluirConta(conta);
-                    return RedirectToAction("Index", "Home");
+                    if (conta.Saldo == 0)
+                    {
+                        ExcluirConta(conta);
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    ModelState.AddModelError("", "Para excluir a conta é necessário zerar o saldo.");
+                    return View(conta);
                 }
 
-                ModelState.AddModelError("", "Para excluir a conta é necessário zerar o saldo.");
+                ModelState.AddModelError("", "Erro ao excluir conta, verifique as informações digitadas.");
                 return View(conta);
             }
-
-            ModelState.AddModelError("", "Erro ao excluir conta, verifique as informações digitadas.");
-            return View(conta);
+            catch
+            {
+                ModelState.AddModelError("", "Erro inesperado ao excluir conta. Tente mais tarde.");
+                return View(conta);
+            }
+            
         }
 
 
@@ -121,7 +130,7 @@ namespace TesteITAU.Controllers
 
 
         //Functions
-        private void CriarNovaConta(Conta conta)
+        private Conta CriarNovaConta(Conta conta)
         {
             random = new Random();
             conta = new Conta();
@@ -133,20 +142,14 @@ namespace TesteITAU.Controllers
 
             db.Conta.Add(conta);
             db.SaveChanges();
+
+            return conta;
         }
 
 
         private void ExcluirConta(Conta conta)
         {
-            //conta.Usuario = db.Usuario.Find(Session["ID"]);
-            //var contaQuery = db.Conta.Where(c => c.NumeroConta == conta.NumeroConta).Select(c => new Conta
-            //{
-            //    ID = c.ID,
-            //    Saldo = c.Saldo,
-            //    NumeroConta = c.NumeroConta
-            //});
-
-            db.Conta.Remove(conta);
+            db.Entry(conta).State = EntityState.Deleted;
             db.SaveChanges();
         }
 
@@ -164,8 +167,8 @@ namespace TesteITAU.Controllers
 
 
         public void SacarValor(Lancamento lancamento, Conta conta)
-        {            
-            if(conta.Saldo > 0)
+        {
+            if (conta.Saldo > 0)
             {
                 conta.Saldo -= lancamento.Valor;
                 conta.Usuario = db.Usuario.Find(Session);

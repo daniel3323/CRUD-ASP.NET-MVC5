@@ -10,7 +10,7 @@ namespace TesteITAU.Controllers
     public class LoginController : Controller
     {
         private UsuarioController usuarioController;
-        public readonly DbContexto db;
+        private readonly DbContexto db;
 
         public LoginController()
         {
@@ -35,8 +35,6 @@ namespace TesteITAU.Controllers
         public ActionResult Logar(Login login)
         {
             usuarioController = new UsuarioController();
- 
-            var a = db.Usuario.Where(u => u.Login == login.LoginUsuario && u.Login == login.Senha);
 
             if (ModelState.IsValid)
             {

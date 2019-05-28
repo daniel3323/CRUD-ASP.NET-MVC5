@@ -10,7 +10,7 @@ namespace TesteITAU.Controllers
 {
     public class UsuarioController : Controller
     {
-        public readonly DbContexto db;
+        private readonly DbContexto db;
 
         public UsuarioController()
         {
