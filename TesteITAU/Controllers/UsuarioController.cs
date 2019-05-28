@@ -44,8 +44,16 @@ namespace TesteITAU.Controllers
                     {
                         if(db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count == 0 )
                         {
-                            CadastrarNovoUsuario(usuario);
-                            return RedirectToAction("Logar", "Login");
+                            if(usuario.Senha.Length >= 8)
+                            {
+                                CadastrarNovoUsuario(usuario);
+                                return RedirectToAction("Logar", "Login");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres..");
+                                return View(usuario);
+                            }                                
                         }
                         else
                         {
@@ -87,8 +95,16 @@ namespace TesteITAU.Controllers
                     {
                         if (db.Usuario.Where(u => u.Login == usuario.Login).ToList().Count == 0)
                         {
-                            AlterarUsuarioCadastrado(usuario);
-                            return View("Index", "Home");
+                            if(usuario.Senha.Length >= 8)
+                            {
+                                AlterarUsuarioCadastrado(usuario);
+                                return View("Index", "Home");
+                            }
+                            else
+                            {
+                                ModelState.AddModelError("Senha", "A senha deve conter, no mínimo, 8 caracteres..");
+                                return View(usuario);
+                            }  
                         }
                         else
                         {

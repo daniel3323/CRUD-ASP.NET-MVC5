@@ -89,11 +89,12 @@ namespace TesteITAU.Controllers
         {
             try
             {
-                var usuarioSessao = db.Usuario.Find(Session["ID"]);
-                conta = db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault();
+                var usuarioSessao = db.Usuario.Find(Session["ID"]);                
 
                 if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == usuarioSessao.ID).ToList().Count > 0)
                 {
+                    conta = db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault();
+
                     if (conta.Saldo == 0)
                     {
                         ExcluirConta(conta);
