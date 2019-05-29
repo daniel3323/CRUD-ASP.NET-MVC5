@@ -89,9 +89,12 @@ namespace TesteITAU.Controllers
                         {
                             return RedirectToAction("Extrato", "Lancamento");
                         }
+
+                        ModelState.AddModelError("", "Saldo insuficiente.");
+                        return View(lancamento);
                     }
 
-                    ModelState.AddModelError("", "Saldo insuficiente.");
+                    ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
                     return View(lancamento);
                 }
 
