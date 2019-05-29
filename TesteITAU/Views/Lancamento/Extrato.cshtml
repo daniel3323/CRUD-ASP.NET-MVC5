@@ -17,11 +17,11 @@
             {
                 <h1>R$ @ViewBag.Conta.Saldo</h1>
                 <h4>Saldo</h4>
-
-                if (ViewBag.Lancamentos.Count > 0)
+                <br />
+                if (ViewBag.Lancamentos != null)
                 {
                     <div class="col-md-12">
-                        <table class="table table-striped">
+                        <table class="table table-hover">
                             <thead class="thread-dark">
                                 <tr>
                                     <th>

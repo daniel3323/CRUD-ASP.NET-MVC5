@@ -12,6 +12,7 @@ namespace TesteITAU.Controllers
     {
         private Random random;
         private readonly DbContexto db;
+        private Usuario usuarioSessao;
 
         public ContaController()
         {
@@ -40,8 +41,8 @@ namespace TesteITAU.Controllers
         {
             try
             {
-                var usuarioSessao = Session["ID"];
-                conta = db.Usuario.Find(usuarioSessao).Contas.FirstOrDefault();
+                usuarioSessao = db.Usuario.Find(Session["ID"]);
+                conta = db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault();
 
                 if (usuarioSessao != null)
                 {
@@ -89,7 +90,7 @@ namespace TesteITAU.Controllers
         {
             try
             {
-                var usuarioSessao = db.Usuario.Find(Session["ID"]);                
+                usuarioSessao = db.Usuario.Find(Session["ID"]);                
 
                 if (db.Conta.Where(c => c.NumeroConta == conta.NumeroConta && c.Usuario_ID == usuarioSessao.ID).ToList().Count > 0)
                 {
