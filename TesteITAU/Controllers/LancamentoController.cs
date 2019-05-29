@@ -11,6 +11,8 @@ namespace TesteITAU.Controllers
     public class LancamentoController : Controller
     {
         private readonly DbContexto db;
+        private Usuario usuarioSessao;
+
         private ContaController contaController;
 
         public LancamentoController()
@@ -23,10 +25,13 @@ namespace TesteITAU.Controllers
         [HttpGet]
         public ActionResult Extrato()
         {
-            var usuarioSessao = db.Usuario.Find(Session["ID"]);
-
-            ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == usuarioSessao.ID).ToList();
-            ViewBag.Conta = db.Conta.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
+            usuarioSessao = db.Usuario.Find(Session["ID"]);
+            if(usuarioSessao != null)
+            {
+                ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == usuarioSessao.ID).ToList();
+                ViewBag.Conta = db.Conta.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
+            }
+            
 
             return View();
         }
@@ -45,24 +50,30 @@ namespace TesteITAU.Controllers
             {           
                 if (ModelState.IsValid)
                 {
-                    var usuarioSessao = db.Usuario.Find(Session["ID"]);
+                    usuarioSessao = db.Usuario.Find(Session["ID"]);
 
-                    if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
+                    if(usuarioSessao != null)
                     {
-                        DepositarValorLancamento(lancamento);
-                        return RedirectToAction("Extrato", "Lancamento");
+                        if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
+                        {
+                            DepositarValorLancamento(lancamento);
+                            return RedirectToAction("Extrato", "Lancamento");
+                        }
+
+                        ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
+                        return View(lancamento);
                     }
 
-                    ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
+                    ModelState.AddModelError("", "Falha ao realizar Depósito, você não está logado no sistema.");
                     return View(lancamento);
                 }
 
                 ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor inserido.");
                 return View(lancamento);
             }
-            catch
+            catch(Exception ex)
             {
-                ModelState.AddModelError("", "Falha ao realizar Depósito, verifique o valor inserido.");
+                ModelState.AddModelError("", "Falha ao realizar Depósito, tente novamente mais tarde.");
                 return View(lancamento);
             }
         }
@@ -81,29 +92,35 @@ namespace TesteITAU.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var usuarioSessao = db.Usuario.Find(Session["ID"]);
+                    usuarioSessao = db.Usuario.Find(Session["ID"]);
 
-                    if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
+                    if(usuarioSessao != null)
                     {
-                        if (SacarValorLancamento(lancamento))
+                        if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
                         {
-                            return RedirectToAction("Extrato", "Lancamento");
+                            if (SacarValorLancamento(lancamento))
+                            {
+                                return RedirectToAction("Extrato", "Lancamento");
+                            }
+
+                            ModelState.AddModelError("", "Saldo insuficiente.");
+                            return View(lancamento);
                         }
 
-                        ModelState.AddModelError("", "Saldo insuficiente.");
+                        ModelState.AddModelError("", "Falha ao realizar Saque, você não possui uma conta.");
                         return View(lancamento);
                     }
 
-                    ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
+                    ModelState.AddModelError("", "Falha ao realizar Saque, você não está logado no sistema.");
                     return View(lancamento);
                 }
 
                 ModelState.AddModelError("", "Falha ao realizar Saque, verifique o valor inserido.");
                 return View(lancamento.Valor);
             }
-            catch
+            catch(Exception ex)
             {
-                ModelState.AddModelError("", "Falha ao realizar Saque, verifique o valor inserido.");
+                ModelState.AddModelError("", "Falha ao realizar Saque, tente novamente mais tarde.");
                 return View();
             }
 
@@ -113,11 +130,11 @@ namespace TesteITAU.Controllers
         //Functions
         private void DepositarValorLancamento(Lancamento lancamento)
         {
-            Usuario user = db.Usuario.Find(Session["ID"]);
+            usuarioSessao = db.Usuario.Find(Session["ID"]);
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "e";
-            lancamento.Conta = user.Contas.Where(c => c.Usuario_ID == user.ID).FirstOrDefault();
+            lancamento.Conta = usuarioSessao.Contas.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
 
             db.Lancamento.Add(lancamento);
             db.SaveChanges();
@@ -130,11 +147,11 @@ namespace TesteITAU.Controllers
 
         private bool SacarValorLancamento(Lancamento lancamento)
         {
-            Usuario user = db.Usuario.Find(Session["ID"]);
+            usuarioSessao = db.Usuario.Find(Session["ID"]);
 
             lancamento.Data = DateTime.Now;
             lancamento.Tipo = "s";
-            lancamento.Conta = db.Conta.Where(c => c.Usuario_ID == user.ID).FirstOrDefault();
+            lancamento.Conta = db.Conta.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
 
             if (lancamento.Conta.Saldo - lancamento.Valor >= 0)
             {
