@@ -30,8 +30,7 @@ namespace TesteITAU.Controllers
             {
                 ViewBag.Lancamentos = db.Lancamento.Where(l => l.Conta.Usuario_ID == usuarioSessao.ID).ToList().OrderByDescending(l => l.Data);
                 ViewBag.Conta = db.Conta.Where(c => c.Usuario_ID == usuarioSessao.ID).FirstOrDefault();
-            }
-            
+            }            
 
             return View();
         }
