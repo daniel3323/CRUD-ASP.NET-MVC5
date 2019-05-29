@@ -71,13 +71,13 @@ namespace TesteITAU.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError("Email", "E-mail já Existente.");
+                            ModelState.AddModelError("Login", "Login já Existente.");
                             return View(usuario);
                         }                        
                     }
                     else
                     {
-                        ModelState.AddModelError("Login", "Login já existente.");
+                        ModelState.AddModelError("Email", "Email já existente.");
                         return View(usuario);
                     }
                 }
