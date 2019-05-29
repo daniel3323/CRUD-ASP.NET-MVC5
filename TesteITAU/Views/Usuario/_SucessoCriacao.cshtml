@@ -1,0 +1,27 @@
+﻿@model TesteITAU.Models.Usuario
+
+@{
+    ViewBag.Title = "Sucesso Criação";
+}
+
+
+@using (Html.BeginForm("_SucessoCriacao", "Usuario", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="row">
+        <h2>Conta criada com sucesso!</h2>
+    </div>
+    <div class="row">
+        <h3>É necessário realizar login para acessar o sistema de contas bancárias.</h3>
+    </div>
+    <div class="row">
+        <h3>Clique @Html.ActionLink("Aqui", "Logar", "Login") para ser redirecionado a tela de Login.</h3>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+}
+
+

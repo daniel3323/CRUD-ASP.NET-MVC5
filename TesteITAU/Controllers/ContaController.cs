@@ -72,6 +72,13 @@ namespace TesteITAU.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult _SucessoExclusao()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public void Depositar(Lancamento lancamento, Conta conta)
         {
@@ -99,7 +106,7 @@ namespace TesteITAU.Controllers
                     if (conta.Saldo == 0)
                     {
                         ExcluirConta(conta);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("_SucessoExclusao", "Conta");
                     }
 
                     ModelState.AddModelError("", "Para excluir a conta é necessário zerar o saldo.");

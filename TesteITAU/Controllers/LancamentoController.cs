@@ -42,6 +42,12 @@ namespace TesteITAU.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult _SucessoTransacao()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Depositar(Lancamento lancamento)
         {
@@ -56,7 +62,7 @@ namespace TesteITAU.Controllers
                         if (db.Usuario.Find(usuarioSessao.ID).Contas.FirstOrDefault() != null)
                         {
                             DepositarValorLancamento(lancamento);
-                            return RedirectToAction("Extrato", "Lancamento");
+                            return RedirectToAction("_SucessoTransacao", "Lancamento");
                         }
 
                         ModelState.AddModelError("", "Falha ao realizar Depósito, você não possui uma conta.");
@@ -99,7 +105,7 @@ namespace TesteITAU.Controllers
                         {
                             if (SacarValorLancamento(lancamento))
                             {
-                                return RedirectToAction("Extrato", "Lancamento");
+                                return RedirectToAction("_SucessoTransacao", "Lancamento");
                             }
 
                             ModelState.AddModelError("", "Saldo insuficiente.");
