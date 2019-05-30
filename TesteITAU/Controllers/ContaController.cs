@@ -143,8 +143,14 @@ namespace TesteITAU.Controllers
         {
             random = new Random();
             conta = new Conta();
+            int numeroPrimario = random.Next(1, 9999);
 
-            conta.NumeroConta = random.Next(1, 9999) + "-" + random.Next(1, 9);
+            if(numeroPrimario.ToString().Length < 4)
+            {
+                numeroPrimario = random.Next(1, 9999); ;
+            }
+
+            conta.NumeroConta =  numeroPrimario + "-" + random.Next(1, 9);            
             conta.Saldo = 0;
             conta.Usuario_ID = Convert.ToInt32(Session["ID"]);
             conta.Usuario = db.Usuario.Find(Session["ID"]);
